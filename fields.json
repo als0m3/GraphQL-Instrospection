@@ -1,0 +1,667 @@
+{
+  "rootQuery": {
+    "type_fields": [
+      {
+        "name": "user",
+        "type": {
+          "name": null,
+          "kind": "LIST",
+          "ofType": {
+            "name": "User",
+            "kind": "OBJECT"
+          }
+        }
+      },
+      {
+        "name": "post",
+        "type": {
+          "name": null,
+          "kind": "LIST",
+          "ofType": {
+            "name": "Post",
+            "kind": "OBJECT"
+          }
+        }
+      },
+      {
+        "name": "nude",
+        "type": {
+          "name": null,
+          "kind": "LIST",
+          "ofType": {
+            "name": "Nude",
+            "kind": "OBJECT"
+          }
+        }
+      },
+      {
+        "name": "comment",
+        "type": {
+          "name": null,
+          "kind": "LIST",
+          "ofType": {
+            "name": "Comment",
+            "kind": "OBJECT"
+          }
+        }
+      }
+    ],
+    "type_description": "This is the root query which holds all possible READ entrypoints for the GraphQL API"
+  },
+  "Int": {
+    "type_fields": null,
+    "type_description": "The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1."
+  },
+  "String": {
+    "type_fields": null,
+    "type_description": "The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text."
+  },
+  "User": {
+    "type_fields": [
+      {
+        "name": "id",
+        "type": {
+          "name": "Int",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "username",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "email",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "posts",
+        "type": {
+          "name": null,
+          "kind": "LIST",
+          "ofType": {
+            "name": "Post",
+            "kind": "OBJECT"
+          }
+        }
+      },
+      {
+        "name": "createdAt",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "updatedAt",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      }
+    ],
+    "type_description": "This represents a User"
+  },
+  "Post": {
+    "type_fields": [
+      {
+        "name": "id",
+        "type": {
+          "name": "Int",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "userId",
+        "type": {
+          "name": "Int",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "slug",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "name",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "content",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "comments",
+        "type": {
+          "name": null,
+          "kind": "LIST",
+          "ofType": {
+            "name": "Comment",
+            "kind": "OBJECT"
+          }
+        }
+      },
+      {
+        "name": "createdAt",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "updatedAt",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      }
+    ],
+    "type_description": "This represents a Post"
+  },
+  "Comment": {
+    "type_fields": [
+      {
+        "name": "id",
+        "type": {
+          "name": "Int",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "postId",
+        "type": {
+          "name": "Int",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "nudeId",
+        "type": {
+          "name": "Int",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "nude",
+        "type": {
+          "name": null,
+          "kind": "LIST",
+          "ofType": {
+            "name": "Nude",
+            "kind": "OBJECT"
+          }
+        }
+      },
+      {
+        "name": "comment",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "createdAt",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "updatedAt",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      }
+    ],
+    "type_description": "This represents a Comment"
+  },
+  "Nude": {
+    "type_fields": [
+      {
+        "name": "id",
+        "type": {
+          "name": "Int",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "flag",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "createdAt",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "updatedAt",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      }
+    ],
+    "type_description": "This represents a NudeType"
+  },
+  "rootMutation": {
+    "type_fields": [
+      {
+        "name": "createPost",
+        "type": {
+          "name": "Post",
+          "kind": "OBJECT",
+          "ofType": null
+        }
+      },
+      {
+        "name": "createComment",
+        "type": {
+          "name": "Comment",
+          "kind": "OBJECT",
+          "ofType": null
+        }
+      }
+    ],
+    "type_description": "This is the root mutation which holds all possible WRITE entrypoints for the GraphQL API"
+  },
+  "__Schema": {
+    "type_fields": [
+      {
+        "name": "types",
+        "type": {
+          "name": null,
+          "kind": "NON_NULL",
+          "ofType": {
+            "name": null,
+            "kind": "LIST"
+          }
+        }
+      },
+      {
+        "name": "queryType",
+        "type": {
+          "name": null,
+          "kind": "NON_NULL",
+          "ofType": {
+            "name": "__Type",
+            "kind": "OBJECT"
+          }
+        }
+      },
+      {
+        "name": "mutationType",
+        "type": {
+          "name": "__Type",
+          "kind": "OBJECT",
+          "ofType": null
+        }
+      },
+      {
+        "name": "subscriptionType",
+        "type": {
+          "name": "__Type",
+          "kind": "OBJECT",
+          "ofType": null
+        }
+      },
+      {
+        "name": "directives",
+        "type": {
+          "name": null,
+          "kind": "NON_NULL",
+          "ofType": {
+            "name": null,
+            "kind": "LIST"
+          }
+        }
+      }
+    ],
+    "type_description": "A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations."
+  },
+  "__Type": {
+    "type_fields": [
+      {
+        "name": "kind",
+        "type": {
+          "name": null,
+          "kind": "NON_NULL",
+          "ofType": {
+            "name": "__TypeKind",
+            "kind": "ENUM"
+          }
+        }
+      },
+      {
+        "name": "name",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "description",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "fields",
+        "type": {
+          "name": null,
+          "kind": "LIST",
+          "ofType": {
+            "name": null,
+            "kind": "NON_NULL"
+          }
+        }
+      },
+      {
+        "name": "interfaces",
+        "type": {
+          "name": null,
+          "kind": "LIST",
+          "ofType": {
+            "name": null,
+            "kind": "NON_NULL"
+          }
+        }
+      },
+      {
+        "name": "possibleTypes",
+        "type": {
+          "name": null,
+          "kind": "LIST",
+          "ofType": {
+            "name": null,
+            "kind": "NON_NULL"
+          }
+        }
+      },
+      {
+        "name": "enumValues",
+        "type": {
+          "name": null,
+          "kind": "LIST",
+          "ofType": {
+            "name": null,
+            "kind": "NON_NULL"
+          }
+        }
+      },
+      {
+        "name": "inputFields",
+        "type": {
+          "name": null,
+          "kind": "LIST",
+          "ofType": {
+            "name": null,
+            "kind": "NON_NULL"
+          }
+        }
+      },
+      {
+        "name": "ofType",
+        "type": {
+          "name": "__Type",
+          "kind": "OBJECT",
+          "ofType": null
+        }
+      }
+    ],
+    "type_description": "The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.\n\nDepending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name and description, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types."
+  },
+  "__TypeKind": {
+    "type_fields": null,
+    "type_description": "An enum describing what kind of type a given `__Type` is."
+  },
+  "Boolean": {
+    "type_fields": null,
+    "type_description": "The `Boolean` scalar type represents `true` or `false`."
+  },
+  "__Field": {
+    "type_fields": [
+      {
+        "name": "name",
+        "type": {
+          "name": null,
+          "kind": "NON_NULL",
+          "ofType": {
+            "name": "String",
+            "kind": "SCALAR"
+          }
+        }
+      },
+      {
+        "name": "description",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "args",
+        "type": {
+          "name": null,
+          "kind": "NON_NULL",
+          "ofType": {
+            "name": null,
+            "kind": "LIST"
+          }
+        }
+      },
+      {
+        "name": "type",
+        "type": {
+          "name": null,
+          "kind": "NON_NULL",
+          "ofType": {
+            "name": "__Type",
+            "kind": "OBJECT"
+          }
+        }
+      },
+      {
+        "name": "isDeprecated",
+        "type": {
+          "name": null,
+          "kind": "NON_NULL",
+          "ofType": {
+            "name": "Boolean",
+            "kind": "SCALAR"
+          }
+        }
+      },
+      {
+        "name": "deprecationReason",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      }
+    ],
+    "type_description": "Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type."
+  },
+  "__InputValue": {
+    "type_fields": [
+      {
+        "name": "name",
+        "type": {
+          "name": null,
+          "kind": "NON_NULL",
+          "ofType": {
+            "name": "String",
+            "kind": "SCALAR"
+          }
+        }
+      },
+      {
+        "name": "description",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "type",
+        "type": {
+          "name": null,
+          "kind": "NON_NULL",
+          "ofType": {
+            "name": "__Type",
+            "kind": "OBJECT"
+          }
+        }
+      },
+      {
+        "name": "defaultValue",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      }
+    ],
+    "type_description": "Arguments provided to Fields or Directives and the input fields of an InputObject are represented as Input Values which describe their type and optionally a default value."
+  },
+  "__EnumValue": {
+    "type_fields": [
+      {
+        "name": "name",
+        "type": {
+          "name": null,
+          "kind": "NON_NULL",
+          "ofType": {
+            "name": "String",
+            "kind": "SCALAR"
+          }
+        }
+      },
+      {
+        "name": "description",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "isDeprecated",
+        "type": {
+          "name": null,
+          "kind": "NON_NULL",
+          "ofType": {
+            "name": "Boolean",
+            "kind": "SCALAR"
+          }
+        }
+      },
+      {
+        "name": "deprecationReason",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      }
+    ],
+    "type_description": "One possible value for a given Enum. Enum values are unique values, not a placeholder for a string or numeric value. However an Enum value is returned in a JSON response as a string."
+  },
+  "__Directive": {
+    "type_fields": [
+      {
+        "name": "name",
+        "type": {
+          "name": null,
+          "kind": "NON_NULL",
+          "ofType": {
+            "name": "String",
+            "kind": "SCALAR"
+          }
+        }
+      },
+      {
+        "name": "description",
+        "type": {
+          "name": "String",
+          "kind": "SCALAR",
+          "ofType": null
+        }
+      },
+      {
+        "name": "locations",
+        "type": {
+          "name": null,
+          "kind": "NON_NULL",
+          "ofType": {
+            "name": null,
+            "kind": "LIST"
+          }
+        }
+      },
+      {
+        "name": "args",
+        "type": {
+          "name": null,
+          "kind": "NON_NULL",
+          "ofType": {
+            "name": null,
+            "kind": "LIST"
+          }
+        }
+      }
+    ],
+    "type_description": "A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.\n\nIn some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor."
+  },
+  "__DirectiveLocation": {
+    "type_fields": null,
+    "type_description": "A Directive can be adjacent to many parts of the GraphQL language, a __DirectiveLocation describes one such possible adjacencies."
+  }
+}
