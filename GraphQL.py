@@ -1,10 +1,21 @@
 import requests
 import json
-
+from termcolor import colored
 # Utils
 
+from src.display import *
+from src.parser import *
+
+def print_text_with_width(text, width):
+    """Print text with a given width."""
+    for i in range(0, len(text), width):
+      print("/".join([a.strip() for a in text[i : i + width].split("/")]))
+      
+
+    # print(text.ljust(width), end="")
 
 def graphql_request(url, query, token, variables=None):
+
     response = requests.post(
         url,
         json={"query": query, "variables": variables},
@@ -26,14 +37,15 @@ def write_json_file(filename, data):
 
 
 def display_fields(fields):
-    print(fields)
+    # print(fields)
     """Display the available fields."""
     for type_name, type_ in fields.items():
         print(type_name)
-        print(type_["type_description"])
         if type_["type_fields"]:
             for field in type_["type_fields"]:
-                print("  -", field["name"])
+                print("\t-", field["name"])
+        if type_["type_description"]:
+            print("(", type_["type_description"] + ")")
 
 
 def graphql_get_types(url, token):
@@ -50,6 +62,14 @@ def graphql_get_types(url, token):
     """
     response = graphql_request(url, query, token)
     return response["data"]["__schema"]["types"]
+
+def graphql_get_request_types(url, token):
+    """Get the request types from the GraphQL schema."""
+    query = open("request.graphql", "r").read()
+    # print(query)
+    response = graphql_request(url, query, token)
+    # print(response)
+    return response["data"]
 
 
 def graphql_get_type_fields(url, token, type_name):
@@ -95,16 +115,44 @@ def graphql_get_available_fields(url, token):
     return fields
 
 
+
+def display_request_types(request_types):
+    write_json_file("request_types.graphql", request_types)
+    """Display the available request types."""
+
+    type_list = dict()
+    for type in request_types["__schema"]["types"]:
+      if type["name"] != "Query":
+        type_list[type["name"]] = type
+        # print(colored(type["name"], "green"))
+
+
+    for query in request_types["__schema"]["types"]:
+        if query["name"] == "Query":
+
+            for field in query["fields"]:
+                # # if field["description"]:
+                # #     print_text_with_width(field["description"], 80)
+                # for arg in field["args"]:
+                #     # print("\t", colored(arg["name"], "red"))
+                #     if arg["description"]:
+                #         print_text_with_width(arg["description"], 80)
+                #     # print("\t\t", colored(arg["type"]["name"], "blue"))
+
+
+                print("----------------------------------------")
+                args = extract_query_arguments(field["args"])
+                type = extract_query_types(field)
+                
+                print(colored(type_list[type[0]]["name"], "white"), ":", colored(field["name"], "green"))
+
+                display_query_arguments(args, type_list)
+                display_query_types(type, type_list)
+
+                print("")
+
 if __name__ == "__main__":
-    url = "http://challenge01.root-me.org/web-serveur/ch66/api/graphql"
-    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjY2NTQ1MzU4LCJleHAiOjE2NjY1NTYxNTh9.GvfQqr8s-309SBTjSleR0OFGtvis0PhDf3KYF89m91E"
-    # types = graphql_get_types(url, token)
-    # types = graphql_get_type_fields(url, token, "User")
+    url = "https://countries.trevorblades.com/"
+    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjY2NjkyNjgyLCJleHAiOjE2NjY3MDM0ODJ9.Fkz5rpGQNUsP9mLQSP9RU3yAr6GByA3ehfY5K9q5W5E"
 
-    fields = graphql_get_available_fields(url, token)
-
-    # print("Available fields:", fields)
-    # print(fields)
-    # display_fields(fields)
-
-    write_json_file("fields.json", fields)
+    display_request_types(graphql_get_request_types(url, token))
