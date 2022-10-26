@@ -1,18 +1,20 @@
 import requests
 import json
 from termcolor import colored
+
 # Utils
 
 from src.display import *
 from src.parser import *
 
+
 def print_text_with_width(text, width):
     """Print text with a given width."""
     for i in range(0, len(text), width):
-      print("/".join([a.strip() for a in text[i : i + width].split("/")]))
-      
+        print("/".join([a.strip() for a in text[i : i + width].split("/")]))
 
     # print(text.ljust(width), end="")
+
 
 def graphql_request(url, query, token, variables=None):
 
@@ -62,6 +64,7 @@ def graphql_get_types(url, token):
     """
     response = graphql_request(url, query, token)
     return response["data"]["__schema"]["types"]
+
 
 def graphql_get_request_types(url, token):
     """Get the request types from the GraphQL schema."""
@@ -115,17 +118,15 @@ def graphql_get_available_fields(url, token):
     return fields
 
 
-
 def display_request_types(request_types):
     write_json_file("request_types.graphql", request_types)
     """Display the available request types."""
 
     type_list = dict()
     for type in request_types["__schema"]["types"]:
-      if type["name"] != "Query":
-        type_list[type["name"]] = type
-        # print(colored(type["name"], "green"))
-
+        if type["name"] != "Query":
+            type_list[type["name"]] = type
+            # print(colored(type["name"], "green"))
 
     for query in request_types["__schema"]["types"]:
         if query["name"] == "Query":
@@ -139,20 +140,31 @@ def display_request_types(request_types):
                 #         print_text_with_width(arg["description"], 80)
                 #     # print("\t\t", colored(arg["type"]["name"], "blue"))
 
-
                 print("----------------------------------------")
                 args = extract_query_arguments(field["args"])
                 type = extract_query_types(field)
-                
-                print(colored(type_list[type[0]]["name"], "white"), ":", colored(field["name"], "green"))
+
+                print(
+                    colored(field["name"], "green"),
+                    ":"
+                    , colored(
+                        type[0],
+                        "yellow",
+                    )
+                   
+                )
 
                 display_query_arguments(args, type_list)
                 display_query_types(type, type_list)
 
                 print("")
 
+
 if __name__ == "__main__":
     url = "https://countries.trevorblades.com/"
     token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjY2NjkyNjgyLCJleHAiOjE2NjY3MDM0ODJ9.Fkz5rpGQNUsP9mLQSP9RU3yAr6GByA3ehfY5K9q5W5E"
 
+    print(colored("Starting the Graphql analyse...", "green"))
+
+    print(colored("Getting the Queries...", "green"))
     display_request_types(graphql_get_request_types(url, token))
