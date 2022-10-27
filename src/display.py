@@ -59,6 +59,7 @@ def display_query_types(type, type_list):
 
         if type_list[clean_type]["fields"] != None:
           depth = []
+          print(type_list[clean_type]["fields"])
           display_sub_fields(type_list[clean_type]["fields"], type_list, depth)
             # for arg in type_list[clean_type]["fields"]:
                 # print("\t\t+", colored(arg["name"], "cyan"),
