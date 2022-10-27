@@ -123,10 +123,14 @@ def display_request_types(request_types):
     """Display the available request types."""
 
     type_list = dict()
-    for type in request_types["__schema"]["types"]:
-        if type["name"] != "Query":
-            type_list[type["name"]] = type
+    for type_ in request_types["__schema"]["types"]:
+        if type_["name"] != "Query":
+            type_list[type_["name"]] = type_
             # print(colored(type["name"], "green"))
+
+    print(colored("REQUEST TYPES", "white"))
+    for type_ in type_list:
+        print("\t-", colored(type_, "green"))
 
     for query in request_types["__schema"]["types"]:
         if query["name"] == "Query":
@@ -146,12 +150,11 @@ def display_request_types(request_types):
 
                 print(
                     colored(field["name"], "green"),
-                    ":"
-                    , colored(
+                    ":",
+                    colored(
                         type[0],
                         "yellow",
-                    )
-                   
+                    ),
                 )
 
                 display_query_arguments(args, type_list)
