@@ -21,44 +21,55 @@ def graphql_getType(arg):
     return [arg_name, dimention[-1]]
 
 
+def print_field_loop(field, depth):
+    print(
+        "\t" * depth + "+",
+        colored(field["name"], "cyan"),
+        ":",
+        colored(graphql_getType(field)[0], "yellow"),
+        "...",
+    )
+
+
+def print_field(field, depth):
+    print(
+        "\t" * depth + "+",
+        colored(field["name"], "cyan"),
+        ":",
+        colored(graphql_getType(field)[0], "yellow"),
+    )
+
+
+def clean_type(type):
+    return graphql_getType(type)[0].replace("!", "").replace("[", "").replace("]", "")
+
+
 def display_sub_fields(sub_fields, type_list, depth, history):
     for field in sub_fields:
-        clean_type = (
-            graphql_getType(field)[0].replace("!", "").replace("[", "").replace("]", "")
-        )
-        if clean_type in history:
-            print(
-                "\t" * depth + "+",
-                colored(field["name"], "cyan"),
-                ":",
-                colored(graphql_getType(field)[0], "yellow"),
-                "...",
-            )
-        else:
-            print(
-                "\t" * depth + "+",
-                colored(field["name"], "cyan"),
-                ":",
-                colored(graphql_getType(field)[0], "yellow"),
-            )
-            clean_type = (
-                graphql_getType(field)[0]
-                .replace("!", "")
-                .replace("[", "")
-                .replace("]", "")
-            )
-            if not graphql_getType(field)[1] == "SCALAR":
-                history.append(clean_type)
+        if clean_type(field) in history:
+            print_field_loop(field, depth)
 
+        else:
+            print_field(field, depth)
+            if not graphql_getType(field)[1] == "SCALAR":
+                history.append(clean_type(field))
             if (
-                clean_type in type_list
-                and type_list[clean_type]["kind"] != "SCALAR"
+                clean_type(field) in type_list
+                and type_list[clean_type(field)]["kind"] != "SCALAR"
                 and depth < MAX_DEPTH
             ):
-                display_sub_fields(
-                    type_list[clean_type]["fields"], type_list, depth + 1, history
-                )
 
+                if "inputFields" in type_list[clean_type(field)]:
+                    display_sub_fields(
+                        type_list[clean_type(field)]["inputFields"],
+                        type_list,
+                        depth + 1,
+                        history,
+                    )
+                else:
+                    display_sub_arguments(
+                    type_list[clean_type(field)]["fields"], type_list, depth + 1, history
+                )
 
 def display_sub_arguments(sub_fields, type_list, depth, history):
     for field in sub_fields:

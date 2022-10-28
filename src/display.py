@@ -21,7 +21,7 @@ def display_query_arguments(args, type_list):
         clean_type = arg_type.replace("!", "").replace("[", "").replace("]", "")
         if clean_type in type_list:
             if type_list[clean_type]["inputFields"] != None:
-                display_sub_arguments(
+                display_sub_fields(
                     type_list[clean_type]["inputFields"], type_list, 2, []
                 )
 
