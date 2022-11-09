@@ -1,5 +1,6 @@
 import requests
 
+
 def graphql_request(url, query, token, variables=None):
     response = requests.post(
         url,
@@ -11,8 +12,11 @@ def graphql_request(url, query, token, variables=None):
     )
     return response.json()
 
+
 def graphql_get_all_types(url, token):
     query = open("request.graphql", "r").read()
     response = graphql_request(url, query, token)
-    return response["data"]["__schema"]["types"]
-
+    try:
+        return response["data"]["__schema"]["types"]
+    except:
+        print("Network error")
